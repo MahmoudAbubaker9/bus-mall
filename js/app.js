@@ -60,6 +60,7 @@ function displayPic(){
     while(leftImg === centerImg || leftImg === rightImg || rightImg === centerImg){
         leftImg = randomNamber() ;
         centerImg = randomNamber();
+        rightImg = randomNamber() ;
     }
     rightElement.src = allInput[rightImg].source;
     centerElement.src = allInput[centerImg].source;
