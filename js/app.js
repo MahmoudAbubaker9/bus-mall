@@ -9,7 +9,7 @@ let leftImg ;
 let centerImg ;
 let rightImg ;
 
-let rounds = 10;
+let rounds = 25;
 let counter = 0;
 
 let allInput = [];
