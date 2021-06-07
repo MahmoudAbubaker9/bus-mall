@@ -8,11 +8,13 @@ let rightElement = document.getElementById('img3')
 let leftImg ;
 let centerImg ;
 let rightImg ;
-
 let rounds = 25;
 let counter = 0;
-
 let allInput = [];
+let arrayOfNames = [];
+let arrayOfVotes = [];
+let arrayOfSeen =[];
+let nonDupimg = [];
 
 class Imgmall {
     constructor(name, source) {
@@ -22,6 +24,7 @@ class Imgmall {
         this.shown = 0;
         this.votes = 0;
         allInput.push(this);
+        arrayOfNames.push(this.name)
     }
 }
 
@@ -57,11 +60,18 @@ function displayPic(){
     centerImg = randomNamber() ;
     rightImg = randomNamber() ;
     
-    while(leftImg === centerImg || leftImg === rightImg || rightImg === centerImg){
+    
+    while(leftImg === centerImg || leftImg === rightImg || rightImg === centerImg || nonDupimg.includes(leftImg) || nonDupimg.includes(centerImg) || nonDupimg.includes(rightImg)){
         leftImg = randomNamber() ;
         centerImg = randomNamber();
         rightImg = randomNamber() ;
     }
+    // console.log(nonDupimg.includes(leftImg));
+    // console.log(nonDupimg.includes(centerImg));
+    // console.log(nonDupimg.includes(rightImg));
+    nonDupimg = [leftImg,centerImg,rightImg]
+    
+
     rightElement.src = allInput[rightImg].source;
     centerElement.src = allInput[centerImg].source;
     leftElement.src = allInput[leftImg].source;
@@ -101,6 +111,8 @@ function clickingPic(event){
 function listOfrusalt(){
     let ul = document.getElementById('unList')
     for(let i = 0 ; i <allInput.length; i++ ){
+        arrayOfVotes.push(allInput[i].votes);
+        arrayOfSeen.push(allInput[i].shown);
         let li = document.createElement('li');
         ul.appendChild(li);
         li.textContent = `${allInput[i].name} has ${allInput[i].votes} Votes and has ${allInput[i].shown} shown`;
@@ -110,5 +122,33 @@ function listOfrusalt(){
 
 function listcall() {
     listOfrusalt()
+    myChart()
     document.getElementById('buttom').removeAttribute("onClick");
   }
+
+  function myChart(){
+
+    let ctx = document.getElementById('voteChart')
+    let voteChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: arrayOfNames,
+            datasets: [{
+                label: '# of Votes',
+                data: arrayOfVotes,
+                backgroundColor: [
+                    'rgba(0, 102, 0, 0.5)',
+                ],
+                borderWidth: 1
+            },{
+              label: '# of Seen',
+              data: arrayOfSeen,
+              backgroundColor: [
+                  'rgba(0, 200, 0, 0.5)',
+              ],
+              borderWidth: 1
+          }
+          ]
+        },
+    });
+    }
