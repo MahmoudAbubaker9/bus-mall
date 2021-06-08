@@ -4,6 +4,7 @@ img{
     width: 20%;
     height: 300px;
     margin-left: 130px;
+    border: solid;
 }
 
 
@@ -13,7 +14,11 @@ h1 {
 }
 
 #buttom {
-    margin-left: 650px;
+    margin-left: 550px;
+    background-color: powderblue;
+    transition: background-color .9s;
+    width: 200px;
+    height: 50px;
 }
 
 #unList {
@@ -21,4 +26,13 @@ h1 {
     font-size: large;
     background-color: skyblue;
 }
+
+#buttom:hover {
+    background-color: gold;
+  }
+
+  body{
+      background-image: url(https://img.freepik.com/free-vector/abstract-blue-geometric-shapes-background_1035-17545.jpg?size=626&ext=jpg);
+      background-repeat: repeat-y;
+  }
 

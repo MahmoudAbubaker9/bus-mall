@@ -4,6 +4,7 @@ let allElement = document.getElementById('partOne')
 let leftElement = document.getElementById('img1')
 let centerElement = document.getElementById('img2')
 let rightElement = document.getElementById('img3')
+let ul = document.getElementById('unList')
 
 let leftImg ;
 let centerImg ;
@@ -15,6 +16,7 @@ let arrayOfNames = [];
 let arrayOfVotes = [];
 let arrayOfSeen =[];
 let nonDupimg = [];
+// let storageArray = [];
 
 class Imgmall {
     constructor(name, source) {
@@ -25,7 +27,26 @@ class Imgmall {
         this.votes = 0;
         allInput.push(this);
         arrayOfNames.push(this.name)
+        // storageArray.push(this);
     }
+}
+
+function storageSave(){
+    let changetype = JSON.stringify(allInput);
+    localStorage.setItem('unList',changetype);
+    // console.log(changetype);
+}
+
+function storageData(){
+    let data = localStorage.getItem('unList')
+    let parseData = JSON.parse(data)
+    // console.log(parseData);
+
+    if(parseData){
+        allInput=parseData
+        
+    }
+    
 }
 
 
@@ -104,25 +125,32 @@ function clickingPic(event){
     displayPic()
 }else{
     allElement.removeEventListener('click',clickingPic);
+    storageSave()
 }
 
 }
 
 function listOfrusalt(){
-    let ul = document.getElementById('unList')
+    // let ul = document.getElementById('unList')
+    ul.textContent = '';
+    
     for(let i = 0 ; i <allInput.length; i++ ){
         arrayOfVotes.push(allInput[i].votes);
         arrayOfSeen.push(allInput[i].shown);
         let li = document.createElement('li');
         ul.appendChild(li);
         li.textContent = `${allInput[i].name} has ${allInput[i].votes} Votes and has ${allInput[i].shown} shown`;
+        ul.appendChild(li);
         
 }
 }
 
+
+    
+
 function listcall() {
-    listOfrusalt()
-    myChart()
+    listOfrusalt();
+    myChart();
     document.getElementById('buttom').removeAttribute("onClick");
   }
 
@@ -137,14 +165,14 @@ function listcall() {
                 label: '# of Votes',
                 data: arrayOfVotes,
                 backgroundColor: [
-                    'rgba(0, 102, 0, 0.5)',
+                    'rgba(0, 102, 0, 0.7)',
                 ],
                 borderWidth: 1
             },{
               label: '# of Seen',
               data: arrayOfSeen,
               backgroundColor: [
-                  'rgba(0, 200, 0, 0.5)',
+                  'rgba(0, 200, 0, 0.7)',
               ],
               borderWidth: 1
           }
@@ -152,3 +180,5 @@ function listcall() {
         },
     });
     }
+    
+    storageData()
