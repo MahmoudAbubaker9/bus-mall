@@ -3,7 +3,7 @@ img{
     display: inline-block;
     width: 20%;
     height: 300px;
-    margin-left: 160px;
+    margin-left: 120px;
     border: solid;
 }
 
@@ -14,7 +14,7 @@ h1 {
 }
 
 #buttom {
-    margin-left: 750px;
+    margin-left: 600px;
     background-color: rgba(0, 81, 255, 0.61);
     transition: background-color .9s;
     width: 200px;
